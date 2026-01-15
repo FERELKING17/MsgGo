@@ -164,6 +164,7 @@ public class MessageService extends Service {
     private void showCompletedNotification() {
         notificationBuilder.setContentText(getString(R.string.sending_completed))
                 .setProgress(0, 0, false)
+                .setOngoing(false)
                 .setAutoCancel(true);
         notificationManager.notify(NOTIFICATION_ID, notificationBuilder.build());
     }
