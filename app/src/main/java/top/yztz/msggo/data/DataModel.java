@@ -70,7 +70,7 @@ public class DataModel implements Serializable {
 
     public static void saveAsHistory(Context context) {
         assert loaded();
-        HistoryManager.addHistory(context, path, template, subId,numberColumn, signature);
+        HistoryManager.addHistory(context, path, template, subId, numberColumn, signature);
     }
 
     public static int getRowCount() {

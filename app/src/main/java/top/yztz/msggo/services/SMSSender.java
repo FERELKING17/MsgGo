@@ -55,7 +55,7 @@ public class SMSSender {
     }
 
     public static int getDefaultSubID() {
-        return SmsManager.getDefaultSmsSubscriptionId();
+        return SubscriptionManager.getDefaultSmsSubscriptionId();
     }
 
     public static List<SubscriptionInfo> getSubs(Context context) {

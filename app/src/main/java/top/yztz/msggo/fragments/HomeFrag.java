@@ -270,10 +270,6 @@ public class HomeFrag extends Fragment {
         boolean hasData = false;
         boolean hasContent = false;
 
-        assert DataModel.getSubId() != -1;
-        assert subs != null;
-        assert !subs.isEmpty();
-
         TransitionSet transitionSet = new TransitionSet()
                 .addTransition(new Fade())
                 .addTransition(new ChangeBounds())
