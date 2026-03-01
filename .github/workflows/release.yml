@@ -2,9 +2,9 @@ name: Android Release
 
 on:
   push:
-    tags:
-      - 'v*'
-      - '[0-9]*'
+    branches:
+      - master
+      - main
 
 jobs:
   build:
@@ -12,23 +12,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-
-      - name: Verify version matches tag
-        run: |
-          # Extract versionName from build.gradle
-          VERSION_NAME=$(grep 'versionName' app/build.gradle | head -1 | sed 's/.*versionName "\(.*\)"/\1/')
-          # Get tag name (remove refs/tags/ prefix and 'v' if present)
-          TAG_NAME="${GITHUB_REF#refs/tags/}"
-          TAG_VERSION="${TAG_NAME#v}"
-          
-          echo "Version from build.gradle: $VERSION_NAME"
-          echo "Version from tag: $TAG_VERSION"
-          
-          if [ "$VERSION_NAME" != "$TAG_VERSION" ]; then
-            echo "::error::Version mismatch! build.gradle has '$VERSION_NAME' but tag is '$TAG_VERSION'"
-            exit 1
-          fi
-          echo "✅ Version check passed!"
 
       - name: Set up JDK 17
         uses: actions/setup-java@v4
@@ -63,12 +46,35 @@ jobs:
             mv "$apk" "release_artifacts/$NEW_NAME"
           done
 
+      - name: Extract Version Name
+        id: version
+        run: |
+          VERSION_NAME=$(grep 'versionName' app/build.gradle | head -1 | sed 's/.*versionName "\(.*\)"/\1/')
+          echo "version=$VERSION_NAME" >> $GITHUB_OUTPUT
+          echo "tag=v$VERSION_NAME" >> $GITHUB_OUTPUT
+          echo "Extracted version: $VERSION_NAME"
+
+      - name: Create Release Tag
+        run: |
+          TAG_NAME="${{ steps.version.outputs.tag }}"
+
+          # Check if tag already exists
+          if git rev-parse "$TAG_NAME" >/dev/null 2>&1; then
+            echo "Tag $TAG_NAME already exists, skipping tag creation"
+          else
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git tag -a "$TAG_NAME" -m "Release version ${{ steps.version.outputs.version }}"
+            git push origin "$TAG_NAME"
+            echo "Created and pushed tag: $TAG_NAME"
+          fi
+
       - name: Create Release
         uses: softprops/action-gh-release@v2
-        if: startsWith(github.ref, 'refs/tags/')
         with:
           files: release_artifacts/*.apk
           generate_release_notes: true
           prerelease: false
+          tag_name: ${{ steps.version.outputs.tag }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
