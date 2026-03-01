@@ -1,6 +1,6 @@
 # MsgGo Project Memory
 
-## Overviews
+## Overview
 **MsgGo** is a high-performance, privacy-focused Android application designed for personalized bulk SMS sending. It leverages Excel data files to dynamically substitute variables into message templates, enabling rapid, personalized outreach. The app features a state-of-the-art **Material 3** interface and a guided configuration workflow.
 
 ## Core Features
