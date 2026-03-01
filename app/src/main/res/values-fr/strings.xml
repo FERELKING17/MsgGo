@@ -5,7 +5,7 @@
   -->
 <resources>
     <string name="app_name">MsgGo</string>
-    <string name="app_description">Une application moderne dd'eamp;apos;envoi de SMS en masse</string>
+    <string name="app_description">Une application moderne d&apos;envoi de SMS en masse</string>
 
     <!-- General UI -->
     <string name="save">Enregistrer</string>
@@ -98,7 +98,7 @@
 Aperçu :
 %2$s</string>
     <string name="no_recipients_selected">Aucun destinataire sélectionné~</string>
-    <string name="confirm_send_title">Confirmer ll'eamp;apos;envoi</string>
+    <string name="confirm_send_title">Confirmer l&apos;envoi</string>
     <string name="confirm_send_msg_format">Êtes-vous sûr de vouloir envoyer des SMS à %1$d contacts sélectionnés?
 Coût estimé: $%2$.2f</string>
     <string name="send_now">Envoyer maintenant</string>
