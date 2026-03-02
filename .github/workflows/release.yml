@@ -54,20 +54,14 @@ jobs:
           echo "tag=v$VERSION_NAME" >> $GITHUB_OUTPUT
           echo "Extracted version: $VERSION_NAME"
 
-      - name: Create Release Tag
-        run: |
-          TAG_NAME="${{ steps.version.outputs.tag }}"
-
-          # Check if tag already exists
-          if git rev-parse "$TAG_NAME" >/dev/null 2>&1; then
-            echo "Tag $TAG_NAME already exists, skipping tag creation"
-          else
-            git config user.name "github-actions[bot]"
-            git config user.email "github-actions[bot]@users.noreply.github.com"
-            git tag -a "$TAG_NAME" -m "Release version ${{ steps.version.outputs.version }}"
-            git push origin "$TAG_NAME"
-            echo "Created and pushed tag: $TAG_NAME"
-          fi
+      # NOTE: automatic tagging was removed per user request.
+      # The workflow used to create a Git tag based on the version
+      # extracted from `app/build.gradle`.  This step can fail when
+      # the runner lacks permission to push tags, or if the tag already
+      # exists.  If you prefer to handle tags manually (or they are
+      # generated elsewhere), keep it removed.  The release action that
+      # follows does not strictly require the tag to exist, it merely
+      # uses the `tag_name` input for naming the GitHub release.
 
       - name: Create Release
         uses: softprops/action-gh-release@v2
