@@ -26,6 +26,15 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew assembleRelease
 
+      - name: Inspect build outputs
+        run: |
+          echo "=== APK output directory ==="
+          ls -al app/build/outputs/apk/release || echo "(none)"
+          echo "=== AAB output directory ==="
+          ls -al app/build/outputs/bundle/release || echo "(none)"
+          echo "=== Full tree for diagnostics ==="
+          find app/build/outputs -maxdepth 3 -type f | sed 's|^|  |'
+
       - name: Sign APK
         uses: r0adkll/sign-android-release@v1
         id: sign_app
