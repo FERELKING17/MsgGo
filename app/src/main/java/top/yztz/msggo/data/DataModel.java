@@ -155,4 +155,16 @@ public class DataModel implements Serializable {
         titles = null;
         loaded = false;
     }
+
+    public static synchronized void loadFromPasted(String[] titles, List<HashMap<String, String>> pastedData) {
+        DataModel.titles = titles;
+        DataModel.data = pastedData;
+        DataModel.path = "";
+        DataModel.signature = HashUtils.toMd5("pasted-" + System.currentTimeMillis());
+        DataModel.timestamp = System.currentTimeMillis();
+        DataModel.template = "";
+        DataModel.numberColumn = "";
+        DataModel.subId = SMSSender.getDefaultSubID();
+        loaded = true;
+    }
 }

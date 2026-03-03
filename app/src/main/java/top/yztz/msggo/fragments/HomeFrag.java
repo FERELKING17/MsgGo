@@ -360,10 +360,7 @@ public class HomeFrag extends Fragment {
             if (!pastedText.isEmpty()) {
                 TextContactsParser.ParseResult result = TextContactsParser.parse(pastedText);
                 if (result != null && result.contactCount > 0) {
-                    DataModel.clear();
-                    DataModel.setTitles(result.titles);
-                    DataModel.setData(result.data);
-                    updateHomeView();
+                    DataModel.loadFromPasted(result.titles, result.data);
                     ToastUtil.show(context, getString(R.string.load_success));
                 } else {
                     ToastUtil.show(context, getString(R.string.error_load_data_first));
