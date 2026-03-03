@@ -187,4 +187,6 @@
     <string name="sent">Envoyé</string>
     <string name="failed">Échoué</string>
     <string name="paused">Suspendu</string>
+    <string name="paste_contacts">Coller Contacts</string>
+    <string name="paste_contacts_hint">Coller numéros ou noms</string>
 </resources>

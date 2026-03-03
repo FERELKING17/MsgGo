@@ -195,4 +195,6 @@
     <string name="currency_unit">￥</string>
 
 
+    <string name="paste_contacts">粘贴联系人</string>
+    <string name="paste_contacts_hint">粘贴电话号码或姓名</string>
 </resources>

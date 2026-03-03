@@ -64,7 +64,7 @@ public class HomeFrag extends Fragment {
     private static final String TAG = "HomeFrag";
     private Context context;
 
-    private View rowCurrentFile, rowNumberColumn, rowEditContent, rowSelectSim, rowSend, cardSend;
+    private View rowCurrentFile, rowPasteContacts, rowNumberColumn, rowEditContent, rowSelectSim, rowSend, cardSend;
     private ViewGroup containerHome;
     private TextView tvSimInfo, tvSubtitleEdit, tvEmptyHistory;
     private TextView tvCurrentFilePath, tvCurrentNumberColumn;
@@ -124,6 +124,7 @@ public class HomeFrag extends Fragment {
         tvEmptyHistory = view.findViewById(R.id.tv_empty_history);
 
         rowCurrentFile = view.findViewById(R.id.row_current_file);
+        rowPasteContacts = view.findViewById(R.id.row_paste_contacts);
         rowNumberColumn = view.findViewById(R.id.row_number_column);
         rowEditContent = view.findViewById(R.id.row_edit_content);
         rowSelectSim = view.findViewById(R.id.row_select_sim);
@@ -175,6 +176,9 @@ public class HomeFrag extends Fragment {
                 ((MainActivity) getActivity()).openFileChooser();
             }
         });
+
+        // Paste contacts
+        rowPasteContacts.setOnClickListener(v -> showPasteContactsDialog());
 
         // Number column selection
         rowNumberColumn.setOnClickListener(v -> showNumberColumnSelector());
@@ -339,6 +343,35 @@ public class HomeFrag extends Fragment {
                 tvEmptyHistory.setVisibility(View.GONE);
             }
         }
+    }
+
+    private void showPasteContactsDialog() {
+        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(context);
+        builder.setTitle(R.string.paste_contacts);
+
+        android.widget.EditText editText = new android.widget.EditText(context);
+        editText.setMinLines(5);
+        editText.setMaxLines(10);
+        editText.setHint(R.string.paste_contacts_hint);
+
+        builder.setView(editText);
+        builder.setPositiveButton(getString(R.string.ok), (dialog, which) -> {
+            String pastedText = editText.getText().toString();
+            if (!pastedText.isEmpty()) {
+                TextContactsParser.ParseResult result = TextContactsParser.parse(pastedText);
+                if (result != null && result.contactCount > 0) {
+                    DataModel.clear();
+                    DataModel.setTitles(result.titles);
+                    DataModel.setData(result.data);
+                    updateHomeView();
+                    ToastUtil.show(context, getString(R.string.load_success));
+                } else {
+                    ToastUtil.show(context, getString(R.string.error_load_data_first));
+                }
+            }
+        });
+        builder.setNegativeButton(getString(R.string.cancel), null);
+        builder.show();
     }
 
     private class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHolder> {

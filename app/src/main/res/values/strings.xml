@@ -187,4 +187,6 @@
     <string name="sent">Sent</string>
     <string name="failed">Failed</string>
     <string name="paused">Paused</string>
+    <string name="paste_contacts">Paste Contacts</string>
+    <string name="paste_contacts_hint">Paste phone numbers or names</string>
 </resources>
