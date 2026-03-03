@@ -1,5 +1,5 @@
 <!--
-  ~ Copyright (C) 2026 yztz
+  ~ Copyright (C) 2026 Ferelking (Forked from MsgGo by yztz)
   ~
   ~ This program is free software; you can redistribute it and/or modify it under
   ~ the terms of the GNU General Public License as published by the Free Software
@@ -73,7 +73,8 @@
     <string name="disclaimer">免责声明</string>
     <string name="privacy_policy">隐私政策</string>
     <string name="license">许可证</string>
-    <string name="made_by">Made with ❤️ by Yztz</string>
+    <string name="made_by">Made with ❤️ by Ferelking</string>
+    <string name="ferelking_contact">+242 065 491 040</string>
     <string name="visit_source_code">访问源代码</string>
     <string name="going_to_url">即将前往 %s</string>
     <string name="visit">访问</string>
@@ -103,7 +104,19 @@
     <string name="preview_msg_format">收件人：%1$s\n内容预览：\n%2$s</string>
     <string name="no_recipients_selected">当前还未选择任何收件人哦~</string>
     <string name="confirm_send_title">确认发送</string>
-    <string name="confirm_send_msg_format">确定向已选的 %1$d 位联系人发送短信吗？\n预计产生费用：¥%2$.2f</string>
+    <string name="confirm_send_msg_format">确定向已选的 %1$d 位联系人发送短信吗？\n预计产生费用：%1$d FCFA</string>
+    <string name="currency_unit_fcfa">FCFA</string>
+    <string name="sms_cost_fcfa">%1$d FCFA</string>
+    <string name="sms_pricing_mode">短信资费模式</string>
+    <string name="sms_pricing_rate">按单位计费</string>
+    <string name="sms_pricing_plan">套餐</string>
+    <string name="sms_rate_label">短信资费(FCFA)</string>
+    <string name="sms_plan_label">已选择套餐</string>
+    <string name="sms_remaining">%1$d / %2$d 短信剩余</string>
+    <string name="sms_plan_format">%1$d 条短信 %2$d FCFA</string>
+    <string name="add_custom_plan">添加自定义套餐</string>
+    <string name="sms_plan_cost_format">套餐：%1$d FCFA（%2$d 条短信）</string>
+    <string name="sms_unit_cost_format">按单位：%1$d 条短信 × %2$d FCFA = %3$d FCFA</string>
     <string name="send_now">立即发送</string>
     <string name="unknown_sim">未知 SIM 卡</string>
     <string name="sim_slot_format">卡槽 %1$d · %2$s</string>

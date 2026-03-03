@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2026 yztz
+ * Copyright (C) 2026 Ferelking (Forked from MsgGo by yztz)
  *
  * This program is free software; you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -222,7 +222,7 @@ public class SettingFrag extends Fragment {
 
         // Check Update
         mRowCheckUpdate.setOnClickListener(v -> {
-            String releaseUrl = "https://github.com/yztz/MsgGo/releases/latest";
+            String releaseUrl = "https://github.com/FERELKING17/MsgGo/releases/latest";
             new MaterialAlertDialogBuilder(context)
                     .setTitle(getString(R.string.check_update))
                     .setMessage(getString(R.string.going_to_url, releaseUrl))
