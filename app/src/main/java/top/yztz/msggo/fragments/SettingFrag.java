@@ -138,16 +138,16 @@ public class SettingFrag extends Fragment {
             return String.format(Locale.getDefault(), "%.1fs", seconds);
         });
 
-        // SMS Rate
+        // SMS Rate (FCFA)
         mCardSmsRate.setOnClickListener(v -> {
             View dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_edit_text, null);
             TextInputLayout container = dialogView.findViewById(R.id.edit_text_container);
             container.setHint(R.string.hint_sms_rate);
-            container.setPrefixText(getString(R.string.currency_unit));
+            container.setPrefixText(getString(R.string.currency_unit_fcfa));
 
             EditText editText = dialogView.findViewById(R.id.edit_text);
-            editText.setInputType(EditorInfo.TYPE_NUMBER_FLAG_DECIMAL | EditorInfo.TYPE_CLASS_NUMBER);
-            editText.setText(String.format(Locale.getDefault(), "%.2f", SettingManager.getSmsRate()));
+            editText.setInputType(EditorInfo.TYPE_CLASS_NUMBER);
+            editText.setText(String.valueOf(SettingManager.getSmsPriceFCFA()));
             editText.setSelection(editText.getText().length());
 
             new com.google.android.material.dialog.MaterialAlertDialogBuilder(context)
@@ -156,12 +156,12 @@ public class SettingFrag extends Fragment {
                     .setPositiveButton(getString(R.string.ok), (dialog, which) -> {
                         String input = editText.getText().toString().trim();
                         if (TextUtils.isEmpty(input)) {
-                            SettingManager.setSmsRate(0.0f);
+                            SettingManager.setSmsPriceFCFA(Settings.SMS_RATE_FCFA_DEFAULT);
                         } else {
                             try {
-                                float rate = Float.parseFloat(input);
-                                if (rate >= Settings.SMS_RATE_MIN && rate <= Settings.SMS_RATE_MAX) {
-                                    SettingManager.setSmsRate(rate);
+                                int rateFCFA = Integer.parseInt(input);
+                                if (rateFCFA >= Settings.SMS_RATE_FCFA_MIN && rateFCFA <= Settings.SMS_RATE_FCFA_MAX) {
+                                    SettingManager.setSmsPriceFCFA(rateFCFA);
                                 } else {
                                     ToastUtil.show(context, getString(R.string.error_invalid_rate_range));
                                 }
@@ -308,8 +308,8 @@ public class SettingFrag extends Fragment {
         // Display number column
         // mTvNumberColumn.setText(TextUtils.isEmpty(numberColumn) ? "未选择" : numberColumn);
         
-        // SMS Rate
-        mTvSmsRateValue.setText(getString(R.string.currency_sms_rate, SettingManager.getSmsRate()));
+        // SMS Rate (FCFA)
+        mTvSmsRateValue.setText(getString(R.string.currency_unit_fcfa) + " " + SettingManager.getSmsPriceFCFA() + "/SMS");
 
         // Display cache size
         try {
