@@ -57,6 +57,7 @@ import top.yztz.msggo.data.DataModel;
 import top.yztz.msggo.data.HistoryManager;
 import top.yztz.msggo.services.SMSSender;
 import top.yztz.msggo.util.FileUtil;
+import top.yztz.msggo.util.TextContactsParser;
 import top.yztz.msggo.util.ToastUtil;
 
 public class HomeFrag extends Fragment {
