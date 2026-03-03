@@ -114,7 +114,7 @@
     <string name="currency_unit_fcfa">FCFA</string>
     <string name="sms_cost_fcfa">%1$d FCFA</string>
     <string name="sms_pricing_mode">Mode de tarification SMS</string>
-    <string name="sms_pricing_rate">À l'unité</string>
+    <string name="sms_pricing_rate">À l\'unité</string>
     <string name="sms_pricing_plan">Forfait</string>
     <string name="sms_rate_label">Tarif SMS (FCFA)</string>
     <string name="sms_plan_label">Forfait SMS sélectionné</string>
