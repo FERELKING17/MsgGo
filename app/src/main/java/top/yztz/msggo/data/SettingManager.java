@@ -34,6 +34,9 @@ public class SettingManager {
     private static final String SEND_DELAY_RANDOMIZATION_KEY = "send_delay_randomization_v1";
     private static final String EDIT_AFTER_IMPORT_KEY = "edit_after_import_v1";
     private static final String SMS_RATE_KEY = "sms_rate_v1";
+    private static final String SMS_RATE_FCFA_KEY = "sms_rate_fcfa_v1";
+    private static final String SMS_PRICING_MODE_KEY = "sms_pricing_mode_v1";
+    private static final String SMS_REMAINING_KEY = "sms_remaining_v1";
     private static final String LANGUAGE_KEY = "language_v1";
     private static final String PRIVACY_ACCEPTED_KEY = "privacy_accepted";
     private static final String DISCLAIMER_ACCEPTED_KEY = "disclaimer_accepted";
@@ -124,6 +127,36 @@ public class SettingManager {
 
     public static void setRandomizeDelay(boolean flag) {
         mEditor.putBoolean(SEND_DELAY_RANDOMIZATION_KEY, flag).apply();
+    }
+
+    // FCFA SMS Rate Methods
+    public static int getSmsPriceFCFA() {
+        return mSp.getInt(SMS_RATE_FCFA_KEY, Settings.SMS_RATE_FCFA_DEFAULT);
+    }
+
+    public static void setSmsPriceFCFA(int fcfa) {
+        mEditor.putInt(SMS_RATE_FCFA_KEY, fcfa).apply();
+    }
+
+    public static String getSmsPricingMode() {
+        return mSp.getString(SMS_PRICING_MODE_KEY, Settings.SMS_PRICING_MODE_DEFAULT);
+    }
+
+    public static void setSmsPricingMode(String mode) {
+        mEditor.putString(SMS_PRICING_MODE_KEY, mode).apply();
+    }
+
+    public static int getSmsRemaining() {
+        return mSp.getInt(SMS_REMAINING_KEY, 0);
+    }
+
+    public static void setSmsRemaining(int count) {
+        mEditor.putInt(SMS_REMAINING_KEY, count).apply();
+    }
+
+    public static void deductSms(int count) {
+        int remaining = getSmsRemaining();
+        setSmsRemaining(Math.max(0, remaining - count));
     }
 
 }

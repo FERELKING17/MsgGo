@@ -152,11 +152,12 @@ public class ChooserActivity extends AppCompatActivity {
                 return;
             }
 
-            double rate = SettingManager.getSmsRate();
-            double cost = itemIndices.size() * rate;
+            // Calculate cost in FCFA
+            int smsFCFARate = SettingManager.getSmsPriceFCFA();
+            int estimatedCost = itemIndices.size() * smsFCFARate;
             new MaterialAlertDialogBuilder(this)
                     .setTitle(getString(R.string.confirm_send_title))
-                    .setMessage(getString(R.string.confirm_send_msg_format, itemIndices.size(), cost))
+                    .setMessage(getString(R.string.confirm_send_msg_format, itemIndices.size(), estimatedCost))
                     .setPositiveButton(getString(R.string.send_now), (dialog, which) -> startSending(itemIndices))
                     .setNegativeButton(getString(R.string.cancel), null)
                     .show();
@@ -174,7 +175,7 @@ public class ChooserActivity extends AppCompatActivity {
 
     private void updateSelectionSummary() {
         if (checkboxAdapter == null || tvSelectionCount == null || tvEstimatedCost == null) return;
-        
+
         int total = DataModel.loaded() ? DataModel.getRowCount() : 0;
         int selected = 0;
         SparseBooleanArray checkedMap = checkboxAdapter.getCheckedMap();
@@ -184,10 +185,10 @@ public class ChooserActivity extends AppCompatActivity {
             }
         }
 
-        double rate = SettingManager.getSmsRate();
-        double cost = selected * rate;
+        int smsFCFARate = SettingManager.getSmsPriceFCFA();
+        int estimatedCost = selected * smsFCFARate;
         tvSelectionCount.setText(String.format(Locale.getDefault(), "%d / %d", selected, total));
-        tvEstimatedCost.setText(String.format(Locale.getDefault(), "%.2f", cost));
+        tvEstimatedCost.setText(String.format(Locale.getDefault(), "%d FCFA", estimatedCost));
     }
     
     private void setupInfoCard() {
